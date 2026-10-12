@@ -1,0 +1,6 @@
+{
+  "name": "SoulLocal - Prospecção B2B no Google Maps",
+  "description": "Ferramenta de inteligência e prospecção B2B de empresas locais no Google Maps com cálculo de score de oportunidade e dados de contato.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
