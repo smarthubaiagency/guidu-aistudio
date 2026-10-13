@@ -23,6 +23,7 @@ interface LeadTableProps {
   onToggleContacted: (id: string) => void;
   onOpenNote: (lead: Lead) => void;
   onSelectLeadDetails: (lead: Lead) => void;
+  onOpenCompanyProfile?: (lead: Lead) => void;
 }
 
 export const LeadTable: React.FC<LeadTableProps> = ({
@@ -36,6 +37,7 @@ export const LeadTable: React.FC<LeadTableProps> = ({
   onToggleContacted,
   onOpenNote,
   onSelectLeadDetails,
+  onOpenCompanyProfile,
 }) => {
   const allSelected = leads.length > 0 && leads.every((l) => selectedIds.has(l.id));
 
@@ -203,6 +205,16 @@ export const LeadTable: React.FC<LeadTableProps> = ({
                 {/* Ações */}
                 <td className="py-3 px-3 text-right">
                   <div className="inline-flex items-center gap-1">
+                    {onOpenCompanyProfile && (
+                      <button
+                        type="button"
+                        onClick={() => onOpenCompanyProfile(lead)}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-semibold text-blue-600 bg-blue-50 dark:bg-blue-950/60 dark:text-blue-300 hover:bg-blue-100"
+                        title="Abrir Perfil Completo no CRM"
+                      >
+                        CRM ↗
+                      </button>
+                    )}
                     <button
                       type="button"
                       onClick={() => onToggleSave(lead.id)}

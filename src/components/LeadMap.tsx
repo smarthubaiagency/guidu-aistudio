@@ -8,6 +8,7 @@ interface LeadMapProps {
   radiusKm: number;
   centerLocationName: string;
   onSelectLeadDetails: (lead: Lead) => void;
+  onOpenCompanyProfile?: (lead: Lead) => void;
 }
 
 export const LeadMap: React.FC<LeadMapProps> = ({
@@ -15,6 +16,7 @@ export const LeadMap: React.FC<LeadMapProps> = ({
   radiusKm,
   centerLocationName,
   onSelectLeadDetails,
+  onOpenCompanyProfile,
 }) => {
   const [activePinLead, setActivePinLead] = useState<Lead | null>(leads[0] || null);
 
@@ -271,13 +273,24 @@ export const LeadMap: React.FC<LeadMapProps> = ({
                 <span>WhatsApp</span>
               </a>
             )}
-            <button
-              type="button"
-              onClick={() => onSelectLeadDetails(activePinLead)}
-              className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline ml-auto"
-            >
-              Ver ficha completa →
-            </button>
+            {onOpenCompanyProfile ? (
+              <button
+                type="button"
+                onClick={() => onOpenCompanyProfile(activePinLead)}
+                className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline ml-auto flex items-center gap-1"
+              >
+                <span>Perfil CRM</span>
+                <span className="font-mono">↗</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onSelectLeadDetails(activePinLead)}
+                className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline ml-auto"
+              >
+                Ver ficha completa →
+              </button>
+            )}
           </div>
         </div>
       )}

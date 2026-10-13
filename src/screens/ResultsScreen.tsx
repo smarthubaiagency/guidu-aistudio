@@ -33,12 +33,14 @@ interface ResultsScreenProps {
   params: ProspectingParams;
   onNewProspecting: () => void;
   onShowToast: (message: string) => void;
+  onOpenCompanyProfile?: (lead: Lead) => void;
 }
 
 export const ResultsScreen: React.FC<ResultsScreenProps> = ({
   params,
   onNewProspecting,
   onShowToast,
+  onOpenCompanyProfile,
 }) => {
   // Leads data state (initialized with MOCK_LEADS)
   const [leads, setLeads] = useState<Lead[]>(MOCK_LEADS);
@@ -872,6 +874,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                   onOpenNote={(l) => setNoteLead(l)}
                   onOpenReport={(l) => setReportLead(l)}
                   onSelectLeadDetails={(l) => setDetailLead(l)}
+                  onOpenCompanyProfile={onOpenCompanyProfile}
                   userNote={userNotes[lead.id]}
                 />
               ))}
@@ -889,6 +892,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
               onToggleContacted={handleToggleContacted}
               onOpenNote={(l) => setNoteLead(l)}
               onSelectLeadDetails={(l) => setDetailLead(l)}
+              onOpenCompanyProfile={onOpenCompanyProfile}
             />
           ) : (
             /* MAP VIEW */
@@ -897,6 +901,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
               radiusKm={params.radiusKm || 10}
               centerLocationName={params.locations[0] || "Centro, Florianópolis"}
               onSelectLeadDetails={(l) => setDetailLead(l)}
+              onOpenCompanyProfile={onOpenCompanyProfile}
             />
           )}
         </main>
@@ -916,6 +921,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         isContacted={detailLead ? contactedIds.has(detailLead.id) : false}
         onToggleContacted={handleToggleContacted}
         onShowToast={onShowToast}
+        onOpenCompanyProfile={onOpenCompanyProfile}
       />
 
       {/* Note Modal */}

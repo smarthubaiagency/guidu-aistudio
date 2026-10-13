@@ -3,12 +3,13 @@ import { Moon, Sun, Search, Sparkles } from "lucide-react";
 import { SoulLocalLogo } from "./SoulLocalLogo";
 
 interface NavbarProps {
-  currentScreen: "form" | "processing" | "results" | "uistates";
-  onNavigate: (screen: "form" | "processing" | "results" | "uistates") => void;
+  currentScreen: "form" | "processing" | "results" | "uistates" | "company";
+  onNavigate: (screen: "form" | "processing" | "results" | "uistates" | "company") => void;
   isDarkMode: boolean;
   onToggleDarkMode: () => void;
   onOpenDesignModal: () => void;
   leadsCount: number;
+  selectedCompanyName?: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -18,6 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleDarkMode,
   onOpenDesignModal,
   leadsCount,
+  selectedCompanyName,
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
@@ -58,6 +60,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="font-mono text-[10px] bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded border border-blue-200 dark:border-blue-800 tabular-nums">
               {leadsCount}
             </span>
+          </button>
+
+          {/* Dedicated Company Profile Tab */}
+          <button
+            type="button"
+            onClick={() => onNavigate("company")}
+            className={`whitespace-nowrap transition-colors py-1 cursor-pointer flex items-center gap-1.5 ${
+              currentScreen === "company"
+                ? "text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 dark:border-blue-400"
+                : "hover:text-slate-900 dark:hover:text-white"
+            }`}
+          >
+            <span>Perfil da Empresa (CRM)</span>
+            {selectedCompanyName && (
+              <span className="hidden xl:inline text-[10px] text-slate-400 font-normal truncate max-w-[120px]">
+                · {selectedCompanyName}
+              </span>
+            )}
           </button>
 
           <button
@@ -121,6 +141,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           }`}
         >
           Resultados ({leadsCount})
+        </button>
+        <button
+          onClick={() => onNavigate("company")}
+          className={`px-2 py-1 rounded ${
+            currentScreen === "company" ? "text-blue-600 font-bold bg-blue-50 dark:bg-blue-950/40" : ""
+          }`}
+        >
+          Empresa CRM
         </button>
         <button
           onClick={() => onNavigate("uistates")}

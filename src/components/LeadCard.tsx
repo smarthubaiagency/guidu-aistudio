@@ -38,6 +38,7 @@ interface LeadCardProps {
   onOpenNote?: (lead: Lead) => void;
   onOpenReport?: (lead: Lead) => void;
   onSelectLeadDetails?: (lead: Lead) => void;
+  onOpenCompanyProfile?: (lead: Lead) => void;
   userNote?: string;
 }
 
@@ -53,6 +54,7 @@ export const LeadCard: React.FC<LeadCardProps> = ({
   onOpenNote,
   onOpenReport,
   onSelectLeadDetails,
+  onOpenCompanyProfile,
   userNote,
 }) => {
   const [showHours, setShowHours] = useState(false);
@@ -422,6 +424,19 @@ export const LeadCard: React.FC<LeadCardProps> = ({
               <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800/50">
                 Sem site
               </span>
+            )}
+
+            {/* Open Full CRM Company Profile */}
+            {onOpenCompanyProfile && (
+              <button
+                type="button"
+                onClick={() => onOpenCompanyProfile(lead)}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 transition-colors"
+                title="Abrir página completa do perfil da empresa (CRM)"
+              >
+                <span>Perfil CRM</span>
+                <span className="font-mono">↗</span>
+              </button>
             )}
 
             {/* Google Maps Route link */}

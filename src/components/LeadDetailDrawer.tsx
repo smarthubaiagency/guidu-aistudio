@@ -32,6 +32,7 @@ interface LeadDetailDrawerProps {
   isContacted?: boolean;
   onToggleContacted: (leadId: string) => void;
   onShowToast: (msg: string) => void;
+  onOpenCompanyProfile?: (lead: Lead) => void;
 }
 
 export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
@@ -45,6 +46,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   isContacted,
   onToggleContacted,
   onShowToast,
+  onOpenCompanyProfile,
 }) => {
   const [activeTab, setActiveTab] = useState<"dados" | "pitch" | "anotacoes">("dados");
   const [noteContent, setNoteContent] = useState(userNote);
@@ -414,6 +416,19 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
               {isSaved ? "★ Salvo" : "Salvar Lead"}
             </button>
           </div>
+
+          {onOpenCompanyProfile && (
+            <button
+              onClick={() => {
+                onClose();
+                onOpenCompanyProfile(lead);
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-colors"
+            >
+              <span>Abrir Ficha Completa CRM</span>
+              <span className="font-mono">↗</span>
+            </button>
+          )}
 
           <button
             onClick={onClose}
